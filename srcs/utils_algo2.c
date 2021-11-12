@@ -11,28 +11,6 @@
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
-void    ft_search_move(t_stack *stack, int n, void (*top)(), void (*bot)())
-{
-    void    (*f)();
-    int  len_stack;
-   
-    len_stack = stack->len;
-    if (len_stack == 0)
-        return ;
-    if (n > (len_stack / 2))
-    {
-        n = (len_stack - n + 1);
-        f = bot;
-    }
-    else
-    {
-        n--;
-        f = top;        
-    }
-    while (n--)
-        (*f)(stack);
-}
-
 int ft_get_index(t_stack *stack)
 {
     t_list *temp;

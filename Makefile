@@ -19,8 +19,8 @@ CFLAGS= -Wall -Wextra -Werror  #-fsanitize=address
 RM= rm -f
 
 SRC =	./srcs/main.c\
+		./srcs/algo_sort.c\
 		./srcs/utils_algo2.c\
-		./srcs/chunks.c\
 		./srcs/stack_init_clear.c\
 		./srcs/fonction_qui_faut_delete_a_la_fin.c\
 		./srcs/move_in_stack.c\

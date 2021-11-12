@@ -19,15 +19,6 @@ t_push	*ft_init_stack(t_push *push)
 	return (push);
 }
 
-t_chunks	*ft_init_chunks(t_chunks *chunks)
-{
-	chunks = malloc(sizeof(*chunks));
-	chunks->incr = 0;
-	chunks->min = 0;
-	chunks->max = 0;
-	return (chunks);
-}
-
 t_push	*ft_clear_push(t_push *push)
 {
 	while (push->stack_a)

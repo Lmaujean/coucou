@@ -21,15 +21,6 @@
 
 /**************************** STRUCTURE DE LISTE  ************************************/
 
-typedef struct s_chunks
-{
-    int min;
-    int max;
-    int incr;
-}               t_chunks;
-
-/**************************** STRUCTURE DE LISTE  ************************************/
-
 typedef struct  s_list
 {
     int         value;
@@ -100,10 +91,10 @@ void    ft_move(t_push *push);
 void	ft_sort(t_push *push);
 void	print_list(t_stack *stack);
 int	    ft_stack_empty(t_stack *stack);
-void    ft_medium_sort(t_push *push, t_chunks *chunks);
-t_chunks    *ft_init_chunks(t_chunks *chunks);
-void    ft_search_move(t_stack *stack, int n, void (*top)(), void (*bot)());
-int ft_get_index(t_stack *stack);
+int     ft_get_index(t_stack *stack);
+void    ft_sort_stack(t_stack *stack);
+int     ft_find_pivot(t_stack *stack);
+void    ft_medium_sort(t_push *push);
 
 /**************************** FONCTION DE NETTOYAGE  ************************************/
 
