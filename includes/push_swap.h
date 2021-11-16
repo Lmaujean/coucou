@@ -33,6 +33,7 @@ typedef struct  s_list
 typedef struct  s_stack
 {
     int         len;
+    int         pivot;
     struct s_list *start;
     struct s_list *end;
 }               t_stack;
@@ -82,8 +83,8 @@ int		ft_push_stack(t_stack **dest, t_stack **src);
 
 int		ft_size_stack(t_stack * stack);
 int		ft_stack_is_sort(t_stack *stack);
-int		ft_get_index_min(t_stack *stack);
-int	    ft_get_index_max(t_stack *stack);
+int		ft_get_value_min(t_stack *stack);
+int	    ft_get_value_max(t_stack *stack);
 t_push	*ft_init_stack(t_push *push);
 int 	ft_sort_3(t_push *a);
 void	ft_sort_5(t_push *push);
@@ -91,9 +92,8 @@ void    ft_move(t_push *push);
 void	ft_sort(t_push *push);
 void	print_list(t_stack *stack);
 int	    ft_stack_empty(t_stack *stack);
-int     ft_get_index(t_stack *stack);
-void    ft_sort_stack(t_stack *stack);
-int     ft_find_pivot(t_stack *stack);
+int     ft_get_index_max(t_stack *stack);
+int     ft_get_index_min(t_stack *stack);
 void    ft_medium_sort(t_push *push);
 
 /**************************** FONCTION DE NETTOYAGE  ************************************/

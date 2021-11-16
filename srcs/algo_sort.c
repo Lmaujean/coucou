@@ -11,93 +11,131 @@
 /* ************************************************************************** */
 #include "../includes/push_swap.h"
 
-void    ft_sort_stack(t_stack *stack)
+int    *ft_copy_stack(t_stack *src)
 {
+    int stack_len;
+    int i;
     t_list *temp;
+    int *dest;
+
+    i = 0;
+    stack_len = src->len;
+    temp = src->start;
+    dest = malloc(sizeof(*dest) * stack_len);
+    while (i < stack_len)
+    {
+        dest[i] = temp->value;
+        temp = temp->next;
+        i++;
+    }
+    return (*&dest);
+    
+}
+
+void    ft_sort_tab(int *tab, int size)
+{
+    int i;
+    int j;
     int tmp;
 
-    temp = stack->start;
-    if (ft_stack_empty(stack))
-      return ;
-    while (temp)
+    i = -1;
+    while (++i < size)
     {
-        if (!temp->next)
-            break ;
-        if (temp->value < temp->next->value)
-            temp = temp->next;
-        else
+        j = i;
+        while (++j < size)
         {
-            tmp = temp->value;
-            temp->value = temp->next->value;
-            temp->next->value = tmp;
-            temp = stack->start;
-        }
+            if (tab[i] > tab[j])
+            {
+                tmp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = tmp;
+            }
+        } 
     }
 }
 
-int ft_find_pivot(t_stack *stack)
+int    ft_find_index_pivot(t_stack *stack)
 {
-    int i = stack->len / 2;
     int pivot;
-    t_list *temp;
+    int stack_len;
 
-    temp = stack->start;
-    while (--i)
-    {
-        temp = temp->next;
-    }
-    pivot = temp->value;
-    printf("la taille de ma stack ===> %d\n", stack->len);
-    printf("Mon pivot est le  ===> %d\n", pivot);
+    stack_len = stack->len;
+    pivot = stack->pivot;
+    if ((stack_len / 2) % 2  == 0)
+        pivot = stack_len / 2;
+    else
+        pivot = stack_len / 2 + 1;
     return (pivot);
 }
 
-void    ft_push_under_pivot_to_b(t_push *push)
+int ft_get_index_by_value(t_stack *stack, int value)
 {
-    int pivot;
+    t_list  *tmp;
+    int index;
 
-    pivot = ft_find_pivot(push->stack_a);
-    while (push->stack_a->start->value <= pivot)
-        ft_pb(push);
-    push->stack_a->start->value = push->stack_a->start->next->value - 1;
+    index = 1;
+    tmp = stack->start;
+    while (tmp)
+    {
+        if (tmp->value == value)
+            return (value);
+        tmp = tmp->next;
+        index++;
+    }
+    return (-1);
 }
 
-void    ft_push_under_pivot_to_a(t_push *push)
+void    ft_search_best_move_in_a(t_push *push, int i)
 {
-    int pivot;
-    //int stack_len;
-    
-    //stack_len = push->stack_b->len - 1;
-    pivot = ft_find_pivot(push->stack_b);
-    while (push->stack_b->start->value >= pivot)
+    int stack_len;
+
+    stack_len = push->stack_a->len;
+    if (i < stack_len / 2)
     {
-         ft_pa(push);
+        ft_ra(push);
     }
-    push->stack_b->start->value = push->stack_b->start->next->value + 1;
-    // if (stack_len != 5)
-    // {
-    //     ft_push_under_pivot_to_a(push);
-    // }
-    // while (!ft_stack_empty(push->stack_b))
-    // {
-    //     ft_pa(push);
-    // }
-        
+    else
+        ft_rra(push);
 }
 
 void    ft_medium_sort(t_push *push)
 {
-    if (ft_stack_empty(push->stack_a))
-        return ;
-    if (push->stack_a)
+    int *tab;
+    int j;
+    int stack_len;
+    int index_pivot;
+    int index_pivot_stack;
+    int min;
+
+    min = ft_get_value_min(push->stack_a);
+    stack_len = push->stack_a->len;
+    j = 0;
+    tab = ft_copy_stack(push->stack_a);
+    ft_sort_tab(&tab[j], stack_len);
+    index_pivot = ft_find_index_pivot(push->stack_a);
+    index_pivot_stack = ft_get_index_by_value(push->stack_a, tab[index_pivot - 1]);
+    while (push->stack_a)
     {
-        ft_sort_stack(push->stack_a);
-        ft_push_under_pivot_to_b(push);
-        ft_push_under_pivot_to_a(push);
-        //ft_ra(push);
-        //ft_ra(push);
-        //ft_ra(push);
-        //ft_ra(push);
-       // ft_ra(push);
+        if (min != push->stack_a->start->value && min <= index_pivot_stack)
+        {
+            ft_search_best_move_in_a(push, min);
+        }
+        ft_pb(push);
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    printf("mon min vaut ca dans ma stack ===> %d\n", min);
+    printf("la value de mon pivot est ====> %d\n", tab[index_pivot - 1]);
+    printf("l'index de mon pivot dans ma stack est ===> %d\n", index_pivot_stack);
+    printf("stack_a\n");
+    print_list(push->stack_a);
+    printf("stack_b\n");
+    print_list(push->stack_b);
+    
 }

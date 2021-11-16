@@ -54,7 +54,7 @@ int	ft_stack_is_sort(t_stack *stack)
 	return (0);
 }
 
-int	ft_get_index_min(t_stack *stack)
+int	ft_get_value_min(t_stack *stack)
 {
 	int		next_value;
 	int		value;
@@ -82,7 +82,7 @@ int	ft_get_index_min(t_stack *stack)
 	return (value);
 }
 
-int	ft_get_index_max(t_stack *stack)
+int	ft_get_value_max(t_stack *stack)
 {
 	int		next_value;
 	int		value;

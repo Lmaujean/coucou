@@ -102,10 +102,10 @@ int	main(int argc, char **argv)
 			printf("stack b\n");
 			print_list(push->stack_b);
 			ft_sort(push);
-			printf("stack a apres move\n");
-			print_list(push->stack_a);
-			printf("stack b apres move\n");
-			print_list(push->stack_b);
+			//printf("stack a apres move\n");
+			//print_list(push->stack_a);
+			//printf("stack b apres move\n");
+			//print_list(push->stack_b);
 		}
 		else
 			ft_putstr_fd("ERROR_PARSING_ARGUMENTS\n", 1);	
