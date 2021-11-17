@@ -85,57 +85,73 @@ int ft_get_index_by_value(t_stack *stack, int value)
     return (-1);
 }
 
-void    ft_search_best_move_in_a(t_push *push, int i)
+void    ft_push_nbr_under_pivot_to_b(t_push *push, int pivot)
 {
+    t_list *temp;
+    int i;
     int stack_len;
 
+    i = 0;
     stack_len = push->stack_a->len;
-    if (i < stack_len / 2)
+    temp = push->stack_a->start;
+    while (i < stack_len)
     {
-        ft_ra(push);
+        if (temp->value <= pivot)
+            ft_pb(push);
+        else
+            ft_ra(push);
+        temp = push->stack_a->start;
+        i++;
     }
-    else
-        ft_rra(push);
 }
+
+void    ft_push_nbr_above_pivot_to_a(t_push *push, int pivot)
+{
+    t_list *temp;
+    int i;
+    int stack_len;
+
+    i = 0;
+    stack_len = push->stack_b->len;
+    temp = push->stack_b->start;
+    while (i < stack_len)
+    {
+        if (temp->value >= pivot)
+            ft_pa(push);
+        else
+            ft_rb(push);
+        temp = push->stack_b->start;
+        i++;
+    }
+}
+
+
 
 void    ft_medium_sort(t_push *push)
 {
-    int *tab;
+    int *tab_a;
+    int *tab_b;
     int j;
     int stack_len;
-    int index_pivot;
-    int index_pivot_stack;
-    int min;
+    int index_pivot_a;
+    int value_pivot_a;
+    int index_pivot_b;
+    int value_pivot_b;
 
-    min = ft_get_value_min(push->stack_a);
+
     stack_len = push->stack_a->len;
     j = 0;
-    tab = ft_copy_stack(push->stack_a);
-    ft_sort_tab(&tab[j], stack_len);
-    index_pivot = ft_find_index_pivot(push->stack_a);
-    index_pivot_stack = ft_get_index_by_value(push->stack_a, tab[index_pivot - 1]);
-    while (push->stack_a)
-    {
-        if (min != push->stack_a->start->value && min <= index_pivot_stack)
-        {
-            ft_search_best_move_in_a(push, min);
-        }
-        ft_pb(push);
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    printf("mon min vaut ca dans ma stack ===> %d\n", min);
-    printf("la value de mon pivot est ====> %d\n", tab[index_pivot - 1]);
-    printf("l'index de mon pivot dans ma stack est ===> %d\n", index_pivot_stack);
-    printf("stack_a\n");
-    print_list(push->stack_a);
-    printf("stack_b\n");
-    print_list(push->stack_b);
+    tab_a = ft_copy_stack(push->stack_a);
+    ft_sort_tab(&tab_a[j], stack_len);
+    index_pivot_a = ft_find_index_pivot(push->stack_a);
+    value_pivot_a = ft_get_index_by_value(push->stack_a, tab_a[index_pivot_a - 1]);
+    printf("l'index de mon pivot dans ma stack_a est ===> %d\n", value_pivot_a);
+    ft_push_nbr_under_pivot_to_b(push, value_pivot_a);
+    tab_b = ft_copy_stack(push->stack_b);
+    ft_sort_tab(&tab_b[j], push->stack_b->len);
+    index_pivot_b = ft_find_index_pivot(push->stack_b);
+    value_pivot_b = ft_get_index_by_value(push->stack_b, tab_b[index_pivot_b - 1]);
+    printf("l'index de mon pivot dans ma stack_b est ===> %d\n", value_pivot_b);
+    ft_push_nbr_above_pivot_to_a(push, value_pivot_b);
     
 }

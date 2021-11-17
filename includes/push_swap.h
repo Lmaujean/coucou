@@ -95,6 +95,7 @@ int	    ft_stack_empty(t_stack *stack);
 int     ft_get_index_max(t_stack *stack);
 int     ft_get_index_min(t_stack *stack);
 void    ft_medium_sort(t_push *push);
+int	    ft_sort_3_b(t_push *push);
 
 /**************************** FONCTION DE NETTOYAGE  ************************************/
 
