@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   utils_algo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaujean <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bledda <bledda@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 12:38:53 by lmaujean          #+#    #+#             */
-/*   Updated: 2021/11/04 12:38:54 by lmaujean         ###   ########.fr       */
+/*   Updated: 2021/11/23 09:27:00 by bledda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
 int	ft_stack_empty(t_stack *stack)

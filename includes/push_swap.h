@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaujean <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bledda <bledda@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 14:02:20 by lmaujean          #+#    #+#             */
-/*   Updated: 2021/09/29 14:02:26 by lmaujean         ###   ########.fr       */
+/*   Updated: 2021/11/23 10:49:18 by bledda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@
 
 /**************************** STRUCTURE DE LISTE  ************************************/
 
-typedef struct  s_list
+typedef struct	s_list
 {
-    int         value;
-    struct s_list *next;
-    struct s_list *back;
-}               t_list;
+	int				value;
+	int				index;
+	struct s_list	*next;
+	struct s_list	*back;
+}					t_list;
 
 /**************************** STRUCTURE DE CONTROLE  ************************************/
 
@@ -63,13 +64,13 @@ void    ft_pb(t_push *push);
 
 /**************************** FONCTION DE CREATION  ************************************/
 
-t_list		*ft_new_dlist(int content);
-t_stack		*ft_new_stack(int content);
+t_list		*ft_new_dlist(int content, int index);
+t_stack		*ft_new_stack(int content, int index);
 
 /**************************** FONCTION DE RAJOUT OU SUPP DANS MA STACK  ******************/
 
-t_stack		*ft_stack_addback(t_stack *stack, int content);
-t_stack		*ft_stack_addfront(t_stack *stack, int content);
+t_stack		*ft_stack_addback(t_stack *stack, int content, int index);
+t_stack		*ft_stack_addfront(t_stack *stack, int content, int index);
 t_stack		*ft_stack_delback(t_stack *stack);
 t_stack		*ft_stack_delfront(t_stack	*stack);
 

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   sort_b.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaujean <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bledda <bledda@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 13:27:23 by lmaujean          #+#    #+#             */
-/*   Updated: 2021/11/17 13:27:54 by lmaujean         ###   ########.fr       */
+/*   Updated: 2021/11/23 09:26:44 by bledda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
 int	ft_sort_3_b(t_push *push)
