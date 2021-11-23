@@ -106,7 +106,7 @@ void	ft_push_index_to_b(t_push *push, int ind)
 int	ft_nearer(int max, t_stack *stack_a)
 {
 	int	index;
-	int	move = 10000000;
+	int	move = 0;
 	int save_move;
 	int save_index;
 	t_list *tmp;
@@ -118,7 +118,7 @@ int	ft_nearer(int max, t_stack *stack_a)
 		tmp = stack_a->start;
 		save_move = 0;
 		while (tmp)
-		{	
+		{
 			save_move++;
 			if (tmp->index == i)
 			{
@@ -142,7 +142,8 @@ void	ft_medium_sort(t_push *push)
 	int package = ft_get_index_max(push->stack_a) / chunk;
 	int i = 0;
 	int j;
-	//int max;
+	int index;
+
 	
 	while (i < chunk)
 	{
@@ -154,13 +155,14 @@ void	ft_medium_sort(t_push *push)
 			if (ft_index_exist(push->stack_a, j))
 				isset = 1;
 		}
-		j= 0;
+		j = 0;
 		int leplusproche = 0;
-		if (isset)
+		if (isset == 1)
 			while (leplusproche < value)
 			{
 				leplusproche = ft_nearer(value, push->stack_a);
-				if (ft_index_exist(push->stack_a, leplusproche))
+				index = ft_index_exist(push->stack_a, leplusproche);
+				if (index)
 				{
 					puts("stack_a");
 					print_list(push->stack_a);
