@@ -19,6 +19,7 @@ CFLAGS= -Wall -Wextra -Werror  -fsanitize=address
 RM= rm -f
 
 SRC =	./srcs/main.c\
+		./srcs/sort_b.c\
 		./srcs/algo_sort.c\
 		./srcs/utils_algo2.c\
 		./srcs/stack_init_clear.c\
