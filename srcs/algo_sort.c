@@ -3,89 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   algo_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaujean <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bledda <bledda@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 10:26:15 by lmaujean          #+#    #+#             */
-/*   Updated: 2021/11/12 10:26:17 by lmaujean         ###   ########.fr       */
+/*   Updated: 2021/11/23 13:44:37 by bledda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
-int    *ft_copy_stack(t_stack *src)
-{
-    int stack_len;
-    int i;
-    t_list *temp;
-    int *dest;
+// int	ft_chunk(t_stack *stack)
+// {
+	
+// }
 
-    i = 0;
-    stack_len = src->len;
-    temp = src->start;
-    dest = malloc(sizeof(*dest) * stack_len);
-    while (i < stack_len)
-    {
-        dest[i] = temp->value;
-        temp = temp->next;
-        i++;
-    }
-    return (*&dest);
-}
-
-int     *ft_stock_group_in_tab(t_stack *stack, int pivot)
-{
-    t_list *temp;
-    int i;
-    int *dest;
-
-    i = 0;
-    temp = stack->start;
-    dest = malloc(sizeof(*dest));
-    while (i > pivot)
-    {
-        dest[i] = temp->value;
-        temp = temp->next;
-        i++;
-    }
-    return (*&dest);
-}
-
-void    ft_sort_tab(int *tab, int size)
-{
-    int i;
-    int j;
-    int tmp;
-
-    i = -1;
-    while (++i < size)
-    {
-        j = i;
-        while (++j < size)
-        {
-            if (tab[i] > tab[j])
-            {
-                tmp = tab[i];
-                tab[i] = tab[j];
-                tab[j] = tmp;
-            }
-        } 
-    }
-}
-
-int    ft_find_index_pivot(t_stack *stack)
-{
-    int pivot;
-    int stack_len;
-
-    stack_len = stack->len;
-    pivot = stack->pivot;
-    if ((stack_len / 2) % 2  == 0)
-        pivot = stack_len / 2;
-    else
-        pivot = stack_len / 2 + 1;
-    return (pivot);
-}
-
-int ft_get_value_by_index(t_stack *stack, int value)
+int	ft_get_index_by_value(t_stack *stack, int value)
 {
     t_list  *tmp;
     int index;
@@ -95,31 +27,45 @@ int ft_get_value_by_index(t_stack *stack, int value)
     while (tmp)
     {
         if (tmp->value == value)
-            return (value);
+            return (index);
         tmp = tmp->next;
         index++;
     }
     return (-1);
 }
 
-void    ft_push_nbr_under_pivot_to_b(t_push *push, int pivot)
+int	ft_index_exist(t_stack *stack, int index)
 {
-    t_list *temp;
-    int i;
-    int stack_len;
+	t_list	*temp;
 
-    i = 0;
-    stack_len = push->stack_a->len;
-    temp = push->stack_a->start;
-    while (i < stack_len)
-    {
-        if (temp->value <= pivot)
-            ft_pb(push);
-        else
-            ft_ra(push);
-        temp = push->stack_a->start;
-        i++;
-    }
+	temp = stack->start;
+	while (temp)
+	{
+		if (index == temp->index)
+			return (1);
+		temp = temp->next;
+	}
+	return (0);
+}
+
+void	ft_push_nbr_under_pivot_to_b(t_push *push, int pivot)
+{
+	t_list	*temp;
+	int		i;
+	int		stack_len;
+
+	i = 0;
+	stack_len = push->stack_a->len;
+	temp = push->stack_a->start;
+	while (i < stack_len)
+	{
+		if (temp->index <= pivot)
+			ft_pb(push);
+		else
+			ft_ra(push);
+		temp = push->stack_a->start;
+		i++;
+	}
 }
 
 void    ft_push_nbr_above_pivot_to_a(t_push *push, int pivot)
@@ -142,40 +88,100 @@ void    ft_push_nbr_above_pivot_to_a(t_push *push, int pivot)
     }
 }
 
-void    ft_medium_sort(t_push *push)
+void	ft_push_index_to_b(t_push *push, int ind)
 {
-    int *tab;
-    //int *tmp;
-    int j;
-    int index_pivot;
-    int value_pivot;
+	t_list	*tmp;
 
-    j = 0;
-    tab = ft_copy_stack(push->stack_a);
-    ft_sort_tab(&tab[j], push->stack_a->len);
-    index_pivot = ft_find_index_pivot(push->stack_a);
-    value_pivot = ft_get_value_by_index(push->stack_a, tab[index_pivot - 1]);
-    printf("stack a\n");
+	tmp = push->stack_a->start;
+	while (ind != tmp->index)
+	{
+		// printf("index = %d\n", ind);
+		// printf("tmp->index = %d\n", tmp->index);
+		ft_ra(push);
+		tmp = push->stack_a->start;
+	}
+	ft_pb(push);
+}
+
+int	ft_nearer(int max, t_stack *stack_a)
+{
+	int	index;
+	int	move = 10000000;
+	int save_move;
+	int save_index;
+	t_list *tmp;
+	int i;
+
+	i = 0;
+	while (++i < max)
+	{
+		tmp = stack_a->start;
+		save_move = 0;
+		while (tmp)
+		{	
+			save_move++;
+			if (tmp->index == i)
+			{
+				save_index = tmp->index;
+				if (move > save_move)
+				{
+					move = save_move;
+					index = save_index;
+				}
+			}
+			tmp = tmp->next;
+		}
+	}
+	printf("%d\n", index);
+	return (index);
+}
+
+void	ft_medium_sort(t_push *push)
+{
+	int chunk = 5;
+	int package = ft_get_index_max(push->stack_a) / chunk;
+	int i = 0;
+	int j;
+	//int max;
+	
+	while (i < chunk)
+	{
+		j = 0;
+		int isset = 0;
+		int value = package * (i + 1) + 1;
+		while (++j < value)
+		{
+			if (ft_index_exist(push->stack_a, j))
+				isset = 1;
+		}
+		j= 0;
+		int leplusproche = 0;
+		if (isset)
+			while (leplusproche < value)
+			{
+				leplusproche = ft_nearer(value, push->stack_a);
+				if (ft_index_exist(push->stack_a, leplusproche))
+				{
+					puts("stack_a");
+					print_list(push->stack_a);
+					puts("stack_b");
+					print_list(push->stack_b);
+					ft_push_index_to_b(push, leplusproche);
+				}
+			}
+		i++;
+	}
+	// while (push->stack_b->len != 1)
+	// {
+	// 	max = ft_get_index_max(push->stack_b);
+	// 	if (max != push->stack_b->start->index)
+	// 		ft_rb(push);
+	// 	else
+	// 		ft_pa(push);
+	// }
+	//ft_pa(push);
+	puts("stack_a");
 	print_list(push->stack_a);
-	printf("stack b\n");
+	puts("stack_b");
 	print_list(push->stack_b);
-    ft_push_nbr_under_pivot_to_b(push, value_pivot);
-    while (push->stack_b->len > 5)
-    {
-        printf("stack a\n");
-		print_list(push->stack_a);
-		printf("stack b\n");
-		print_list(push->stack_b);
-        tab = ft_copy_stack(push->stack_b);
-        ft_sort_tab(&tab[j], push->stack_b->len);
-        index_pivot = ft_find_index_pivot(push->stack_b);
-        value_pivot = ft_get_value_by_index(push->stack_b, tab[index_pivot - 1]);
-        //tmp = ft_stock_group_in_tab(push->stack_b, value_pivot);
-        // while (j != value_pivot)
-        // {
-        //     printf("dans tab y'a ca ====> %d\n", tmp[j]);
-        //     j++;
-        // }
-        ft_push_nbr_above_pivot_to_a(push, value_pivot);
-    }
 }

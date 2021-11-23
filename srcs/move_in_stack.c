@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   move_in_stack.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmaujean <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bledda <bledda@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 12:34:23 by lmaujean          #+#    #+#             */
-/*   Updated: 2021/11/04 12:34:26 by lmaujean         ###   ########.fr       */
+/*   Updated: 2021/11/23 10:49:54 by bledda           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
-t_stack	*ft_stack_addback(t_stack *stack, int content)
+t_stack	*ft_stack_addback(t_stack *stack, int content, int index)
 {
 	t_list	*list;
 
 	if (ft_stack_empty(stack))
 	{
-		stack = ft_new_stack(content);
+		stack = ft_new_stack(content, index);
 		return (stack);
 	}
-	list = ft_new_dlist(content);
+	list = ft_new_dlist(content, index);
 	if (list == NULL)
 		return (NULL);
 	stack->end->next = list;
@@ -30,16 +31,16 @@ t_stack	*ft_stack_addback(t_stack *stack, int content)
 	return (stack);
 }
 
-t_stack	*ft_stack_addfront(t_stack *stack, int content)
+t_stack	*ft_stack_addfront(t_stack *stack, int content, int index)
 {
 	t_list	*list;
 
 	if (ft_stack_empty(stack))
 	{
-		stack = ft_new_stack(content);
+		stack = ft_new_stack(content, index);
 		return (stack);
 	}
-	list = ft_new_dlist(content);
+	list = ft_new_dlist(content, index);
 	if (list == NULL)
 		return (NULL);
 	stack->start->back = list;
