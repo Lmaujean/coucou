@@ -76,9 +76,7 @@ int	main(int argc, char **argv)
 {
 	t_push	*push;
 	char	**ret;
-	int		i;
 
-	i = 0;
 	push = NULL;
 	ret = NULL;
 	push = ft_init_stack(push);
@@ -88,18 +86,13 @@ int	main(int argc, char **argv)
 		ret = ft_cpy_all_arg(argv + 1);
 	if (ret != NULL)
 	{
-		//printf("debug print ret\n");
-		//while (ret[i])
-		//     printf("dans ret il y a ça ====> %s\n", ret[i++]);
 		if (!ft_pars(ret))
-		{
-		//printf("debug print stack\n");
-			
+		{	
 			push->stack_a = ft_stock_arg_in_stack(ret);
-			printf("stack a\n");
-			print_list(push->stack_a);
-			printf("stack b\n");
-			print_list(push->stack_b);
+			// printf("stack a\n");
+			// print_list(push->stack_a);
+			// printf("stack b\n");
+			// print_list(push->stack_b);
 			ft_sort(push);
 			printf("stack a apres move\n");
 			print_list(push->stack_a);

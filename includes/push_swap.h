@@ -34,6 +34,7 @@ typedef struct  s_stack
 {
     int         len;
     int         pivot;
+    int         *tmp;
     struct s_list *start;
     struct s_list *end;
 }               t_stack;

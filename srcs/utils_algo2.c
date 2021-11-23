@@ -23,8 +23,6 @@ int ft_get_index_min(t_stack *stack)
 	pos = 1;
 	index = 1;
 	save = temp->value;
-    if (temp == NULL)
-        return (1);
 	while (temp)
 	{
 		if (temp->next)
@@ -39,7 +37,7 @@ int ft_get_index_min(t_stack *stack)
 		temp = temp->next;
 		pos++;
 	}
-	return (index);
+	return (save);
 }
 
 int ft_get_index_max(t_stack *stack)
@@ -54,8 +52,6 @@ int ft_get_index_max(t_stack *stack)
 	pos = 1;
 	index = 1;
 	save = temp->value;
-    if (temp == NULL)
-        return (1);
 	while (temp)
 	{
 		if (temp->next)
@@ -70,5 +66,5 @@ int ft_get_index_max(t_stack *stack)
 		temp = temp->next;
 		pos++;
 	}
-	return (index);
+	return (save);
 }
